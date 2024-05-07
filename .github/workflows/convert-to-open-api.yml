@@ -1,9 +1,9 @@
-name: Convert Postman Collection to OpenAPI
+name: Convert to OpenAPI
 
 on:
   push:
     branches:
-      - master  # Cambia 'master' por el nombre de tu rama si es necesario
+      - master
 
 jobs:
   convert:
@@ -13,7 +13,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        fetch-depth: 0  # Importante para permitir el push de cambios
+        fetch-depth: 0 
 
     - name: Set up Node.js
       uses: actions/setup-node@v3
@@ -27,21 +27,21 @@ jobs:
       run: |
         if [ -f swagger.yaml ]; then
           rm swagger.yaml
-          echo "Existing swagger.yaml removed."
+          echo "Existe el archivo swagger.yaml, por lo tanto este sera eliminado."
         fi
 
     - name: Convert Postman collection to OpenAPI
-      run: p2o NewCollection.postman_collection.json -f swagger.yaml
+      run: p2o ms_mock.postman_collection.json -f swagger.yaml
 
     - name: Set up Git credentials using URL
       run: |
-        git config --global user.email "jose.sandovalr7@gmail.com"
-        git config --global user.name "JoseSandovalR"
+        git config --global user.email "automation@automaion.com"
+        git config --global user.name "robot"
         git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/JoseSandovalR/poc-swagger.git
     
     - name: Commit and push if it's necessar
       run: |
         git pull
         git add swagger.yaml
-        git commit -m "Update OpenAPI definition" || exit 0  # El commit fallará si no hay cambios
-        git push origin master  # Especifíca la rama, reemplaza 'master' si es necesario
+        git commit -m "[MOD] Se modifica archivo swagger.yaml" || exit 0 
+        git push origin master

@@ -2,7 +2,7 @@ name: Update Swagger UI
 
 on:
   workflow_run:
-    workflows: ["Convert Postman Collection to OpenAPI"]
+    workflows: ["Convert to OpenAPI"]
     types:
       - completed
       
@@ -14,7 +14,7 @@ jobs:
   updateSwagger:
     runs-on: ubuntu-latest
     # Verificar que el workflow que concluyó es el esperado y fue exitoso
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.name == 'Convert Postman Collection to OpenAPI' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.name == 'Convert to OpenAPI' }}
     steps:
       - uses: actions/checkout@v4
       - name: Get Latest Swagger UI Release
