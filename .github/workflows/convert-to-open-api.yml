@@ -37,11 +37,10 @@ jobs:
       run: |
         git config --global user.email "automation@automaion.com"
         git config --global user.name "robot"
-        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/JoseSandovalR/poc-swagger.git
+        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/JoseSandovalR/poc-swagger-ui.git
     
     - name: Commit and push if it's necessar
       run: |
-        git fetch  
         git pull
         git add swagger.yaml
         git commit -m "[MOD] Se modifica archivo swagger.yaml" || exit 0 
